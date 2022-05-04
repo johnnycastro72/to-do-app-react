@@ -1,36 +1,39 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { Store } from "./StoreProvider";
 
 const Form = () => {
+  const formRef = useRef(null);
+
   const onAdd = (event) => {
     event.preventDefault();
-    if(title&&message){
-        dispatch({
-            type: 'add-note',
-            payload: {
-                title,
-                message
-            }
-        })
+    if (title && message) {
+      dispatch({
+        type: "add-note",
+        payload: {
+          title,
+          message,
+        },
+      });
+      formRef.current.reset()
     }
   };
 
-  const {state, dispatch} = useContext(Store)
+  const { state, dispatch } = useContext(Store);
 
   const [title, setTitle] = useState("");
 
   const [message, setMessage] = useState("");
 
   const addingTitle = (e) => {
-      setTitle(e.target.value)
+    setTitle(e.target.value);
   };
 
   const addingMessage = (e) => {
-      setMessage(e.target.value)
+    setMessage(e.target.value);
   };
 
   return (
-    <form>
+    <form ref={formRef}>
       <label>Title:</label>
       <input onChange={addingTitle} type="text" name="title" />
       <label>Message:</label>
