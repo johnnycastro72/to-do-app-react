@@ -7,12 +7,7 @@ function reducer(state, action) {
             }
             return stateWithAllTheNotes
         case 'add-note':
-            const newNote = {
-                id: Math.floor(Math.random()*100),
-                title: action.payload.title,
-                message: action.payload.message,
-                done: false
-            }
+            const newNote = action.payload;
             const newListOfNotesAddedOne = [...state.listOfNotes, newNote]
             const newStateAddNote = {
                 ...state, listOfNotes: newListOfNotesAddedOne
