@@ -15,8 +15,8 @@ const Form = () => {
 
       let noteSavedPromise = await fetch('http://localhost:8081/api/v1/save/note', 
       {
-        method: 'post',
-        header: {
+        method: 'POST',
+        headers: {
           'Content-type': 'application/json'
         },
         body: JSON.stringify(noteFromForm)
