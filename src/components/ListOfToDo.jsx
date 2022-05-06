@@ -23,14 +23,27 @@ const ListOfToDo = () => {
     return data
   }
 
-  const onCheckBox = (event, note) => {
+  const onCheckBox = async (event, note) => {
+
     const checked = event.currentTarget.checked;
+
+    let noteWithCheckboxInformation = {...note, 
+      done: checked}
+
+    const noteUpdatedPromise = await fetch('http://localhost:8081/api/v1/update/note', 
+    {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(noteWithCheckboxInformation)
+    });
+
+    let noteUpdated = await noteUpdatedPromise.json();
+
     dispatch({
       type: "update-note",
-      payload: {
-        ...note,
-        done: checked,
-      },
+      payload: noteUpdated
     });
   };
 
@@ -56,6 +69,7 @@ const ListOfToDo = () => {
               <input
                 onChange={(event) => onCheckBox(event, note)}
                 type="checkbox"
+                checked={note.done}
               />
               <button onClick={() => onDelete(note)}>Delete</button>
             </li>
