@@ -18,7 +18,6 @@ function reducer(state, action) {
             const newStateWithNoteDeleted = {...state, listOfNotes: newListOfNotesWithoutPayloadNote}
             return newStateWithNoteDeleted
         case 'update-note':
-            console.log(action.payload);
             const newListOfNotes = state.listOfNotes.map(note => {
                 if(note.id == action.payload.id){
                     return action.payload
